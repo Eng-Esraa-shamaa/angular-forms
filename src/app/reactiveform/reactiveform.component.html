@@ -1,0 +1,87 @@
+<h4>Reactive Form</h4>
+<form
+[formGroup]='contactForm'
+(ngSubmit)="onSubmit(contactForm)"
+class="container mt-5" >
+
+    <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input type="text" class="form-control" id="firstName" name="firstName" formControlName='firstName' placeholder="Enter your first name">
+      <div class="errors d-flex justify-content-center" *ngIf="myValues.firstName.touched && myValues.firstName.invalid">
+        <div *ngIf='myValues.firstName.errors?.required'>*First Name is required*</div>
+        <div *ngIf='myValues.firstName.errors?.minlength'>*min length is {{ myValues.firstName.errors?.minlength.requiredLength }}*</div>
+
+
+      </div></div>
+      
+
+    <div class="form-group">
+        <label for="secondName">Last Name</label>
+        <input type="text" class="form-control" id="secondName" name="secondName" formControlName='lastName' placeholder="Enter your second Name">
+      <div class="errors d-flex justify-content-center" *ngIf="myValues.lastName.touched && myValues.lastName.invalid">
+        <div *ngIf='myValues.lastName.errors?.required'>*Last Name is required*</div>
+        <div *ngIf='myValues.lastName.errors?.minlength'>*min length is {{ myValues.lastName.errors?.minlength.requiredLength }}*</div>
+
+
+      </div>
+    </div>
+      
+
+    <div class="form-group">
+      <label for="email">Email address</label>
+      <input type="email" class="form-control" name="email" id="email"  formControlName='email' placeholder="Enter your Email">
+
+      <div class="d-flex justify-content-center" *ngIf="myValues.email.invalid && myValues.email.touched">
+        <div *ngIf ="myValues.email.errors?.required" class="errors">
+            *Email is required*
+        </div>
+        <div *ngIf ="myValues.email.errors?.email" class="errors">
+            *Email is invalid*
+        </div>
+
+    </div>
+    </div>
+    <div class="form-group">
+      <label for="country">Select your countries</label>
+      <select class="form-control" id="country" name="country" formControlName='country' >
+        
+        <option>choose country </option>
+        <option *ngFor="let country of countries">{{ country.name }}</option>
+        
+      </select>
+      <div class="d-flex justify-content-center" *ngIf="myValues.country.invalid && myValues.country.touched">
+
+        <div *ngIf="myValues.country.errors?.required" class="errors">*Country is required*</div>
+    </div>
+    </div>
+    
+    <div class="form-check form-check-inline">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="gender"
+          id="male"
+          value="male"
+          formControlName='gender'
+        />
+        <label class="form-check-label" for="male"> Male </label>
+      </div>
+    
+      <div class="form-check form-check-inline">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="gender"
+          id="female"
+          value="female"
+          formControlName='gender'
+        />
+        <label class="form-check-label" for="female"> Female </label>
+      </div>
+    
+      <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="isMarried" name="isMarried"  formControlName='isMarried' />
+        <label class="form-check-label" for="isMarried">Is Married</label>
+      </div>
+      <button class="btn btn-primary" (click)='log()' [disabled]='contactForm.invalid'>Submit</button>
+  </form>

@@ -1,0 +1,131 @@
+<h2 style="color: rgb(68, 68, 156); font-family: Arial, Helvetica, sans-serif">
+  Template Form!
+</h2>
+<form class="container mt-5" #contactForm="ngForm" (ngSubmit)="onSubmit(contactForm)">
+  <div class="form-group">
+    <label for="exampleFormControlInput1">First Name</label>
+    <!--angular byt3amel m3 el input as form control-->
+    <!--ngModel takes its value from name so i`s important to put name in the input field-->
+    <!--to acces ngModel we have to create local variable and equal it to ngModel-->
+    <input
+      type="text"
+      class="form-control"
+      id="firstName"
+      name="firstName"
+      ngModel
+      #firstName="ngModel"
+      (change)="log(firstName)"
+      required
+      minlength="3"
+      placeholder="Enter your first name"
+    />
+    <div
+      class="d-flex justify-content-center"
+      *ngIf="firstName.invalid && firstName.touched"
+    >
+      <div *ngIf="firstName.errors?.required" class="errors">
+        *First Name is required*
+      </div>
+      <div *ngIf="firstName.errors?.minlength" class="errors">
+        *minimum length is {{ firstName.errors?.minlength.requiredLength }}*
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="exampleFormControlInput1">Last Name</label>
+    <input
+      type="text"
+      class="form-control"
+      id="lastName"
+      name="lastName"
+      ngModel
+      #lastName="ngModel"
+      (change)="log(lastName)"
+      required
+      minlength="3"
+      placeholder="Enter your last name"
+    />
+    <div
+      class="d-flex justify-content-center"
+      *ngIf="lastName.invalid && lastName.touched"
+    >
+      <div *ngIf="lastName.errors?.required" class="errors">
+        *Last Name is required*
+      </div>
+      <div *ngIf="lastName.errors?.minlength" class="errors">
+        *minimum length is {{ lastName.errors?.minlength.requiredLength }}*
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="exampleFormControlInput1">Email address</label>
+    <input
+      type="text"
+      class="form-control"
+      name="email"
+      ngModel
+      #email="ngModel"
+      id="email"
+      required
+      email
+      (change)="log(email)"
+      placeholder="Enter your Email"
+    />
+    <div class="d-flex justify-content-center" *ngIf="email.invalid && email.touched">
+        <div *ngIf ="email.errors?.required" class="errors">
+            *Email is required*
+        </div>
+        <div *ngIf ="email.errors?.email" class="errors">
+            *Email is invalid*
+        </div>
+
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="country">Select your country</label>
+    <select class="form-control" id="country" name="country" required ngModel #country='ngModel'> 
+      <option disabled>Choose your country..</option>
+      <option *ngFor="let country of countries">{{ country.name }}</option>
+    </select>
+    <div class="d-flex justify-content-center" *ngIf="country.invalid && country.touched">
+
+        <div *ngIf="country.errors?.required" class="errors">*Country is required*</div>
+    </div>
+  </div>
+
+  <div class="form-check form-check-inline">
+    <input
+      class="form-check-input"
+      type="radio"
+      name="gender"
+      ngModel
+      #gender='ngModel'
+      id="male"
+      required
+      value="male"
+    />
+    <label class="form-check-label" for="male"> Male </label>
+  </div>
+
+  <div class="form-check form-check-inline">
+    <input
+      class="form-check-input"
+      type="radio"
+      name="gender"
+      ngModel
+      #gender='ngModel'
+      id="female"
+      required
+      value="female"
+    />
+    <label class="form-check-label" for="female"> Female </label>
+  </div>
+
+  <div class="form-check">
+    <input type="checkbox" class="form-check-input" id="isMarried" name="isMarried" ngModel />
+    <label class="form-check-label" for="isMarried">Is Married</label>
+  </div>
+  <button class="btn btn-primary"[disabled]='contactForm.invalid'>Submit</button>
+</form>
